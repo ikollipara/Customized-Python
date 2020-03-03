@@ -23,14 +23,17 @@ class JSON(dict):
 
     def __setattr__(self, key, value):
         """ Set value at key. """
+
         self[key] = value
     
     def __delattr__(self, key):
         """ Delete value at key. """
+
         try:
             del self[key]
         except KeyError as k:
             raise AttributeError(k)
     
     def __repr__(self):
+        
         return f"<JSON {dict.__repr__(self)}>"
