@@ -8,17 +8,17 @@
 
 # Imports
 from functools import wraps
+from typing import Callable
 
-
-def create_namespace(scope):
+def create_namespace(scope:str) -> object:
     """ Create an empty namespace from given scope. 
     
     scope  String used to create namespace.
     """
-    
+
     return type(scope, (object,), {})()
 
-def namespace(scope):
+def namespace(scope:object) -> Callable:
     """ Add given the function to the given namespace. 
     
     Parameters
@@ -26,7 +26,7 @@ def namespace(scope):
            with create_namespace()
     """
 
-    def namespace_decorator(func):
+    def namespace_decorator(func:Callable) -> Callable:
         """ Inner decorator function. 
         
         func  Function passed as part of decorator syntax.
@@ -35,7 +35,7 @@ def namespace(scope):
         setattr(scope, func.__name__, func)
 
         @wraps(func)
-        def wrapper():
+        def wrapper() -> None:
             return func()
 
         return wrapper
